@@ -3,5 +3,5 @@ export default function Home() {
     <div>
       <h1>PC Components Store</h1>
     </div>
-  );
+  )
 }

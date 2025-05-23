@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react'
 
 describe('Hello, World component', () => {
   test('should render \'Hello, World\'', () => {
