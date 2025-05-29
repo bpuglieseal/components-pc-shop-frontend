@@ -13,6 +13,9 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)'
       },
+      boxShadow: {
+        'input-focus': 'inset 0 1px 1px #00000013, 0 0 8px #ddd'
+      },
       container: {
         center: true,
         screens: {

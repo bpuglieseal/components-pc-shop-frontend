@@ -1,18 +1,22 @@
 import {FC, PropsWithChildren} from 'react'
+import Link from 'next/link'
 import Search from './icons/search'
 import Cart from './icons/cart'
 
 type HeaderProps = object
 
-const HeaderTopBarLinkItem: FC<PropsWithChildren<object>> = ({children}) => {
+const HeaderTopBarLinkItem: FC<PropsWithChildren<{path: string}>> = ({
+  children,
+  path
+}) => {
   return (
     <li>
-      <a
-        href="#"
+      <Link
+        href={path}
         className="text-white text-sm hover:text-[#999] transition-colors"
       >
         {children}
-      </a>
+      </Link>
     </li>
   )
 }
@@ -23,9 +27,13 @@ export const Header: FC<HeaderProps> = () => {
       <div className="min-h-10 bg-[#2c2c2c] flex items-center">
         <div className="container mx-auto flex flex-row justify-between">
           <ul className="flex-row flex gap-6">
-            <HeaderTopBarLinkItem>Log in</HeaderTopBarLinkItem>
-            <HeaderTopBarLinkItem>Create an account</HeaderTopBarLinkItem>
-            <HeaderTopBarLinkItem>Check out</HeaderTopBarLinkItem>
+            <HeaderTopBarLinkItem path="/account/login">
+              Log in
+            </HeaderTopBarLinkItem>
+            <HeaderTopBarLinkItem path="#">
+              Create an account
+            </HeaderTopBarLinkItem>
+            <HeaderTopBarLinkItem path="#">Check out</HeaderTopBarLinkItem>
           </ul>
           <div className="flex items-center">
             <h3 className="text-sm text-[#999]">Welcome to our online store</h3>
@@ -33,7 +41,7 @@ export const Header: FC<HeaderProps> = () => {
         </div>
       </div>
       <div className="container flex flex-row justify-between py-6">
-        <div className="pt-6">
+        <div className="self-center">
           <span>
             <a
               href="#"
