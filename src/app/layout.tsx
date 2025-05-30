@@ -6,6 +6,9 @@ import {InfoLinks} from '@/features/shared/components/info-links'
 import './globals.css'
 import {Footer} from '@/features/shared/components/footer'
 
+// Providers
+import {NextAuthProvider} from '@/providers/next-auth'
+
 const inter = Inter({
   variable: '--inter-font',
   subsets: ['latin']
@@ -23,13 +26,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <Header />
-        <Navigation />
-        <main>
-          {children}
-          <InfoLinks />
-        </main>
-        <Footer />
+        <NextAuthProvider>
+          <Header />
+          <Navigation />
+          <main>
+            {children}
+            <InfoLinks />
+          </main>
+          <Footer />
+        </NextAuthProvider>
       </body>
     </html>
   )
