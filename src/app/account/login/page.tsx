@@ -1,4 +1,4 @@
-import {LoginForm} from '@/features/login/components/form-login'
+import {LoginFormContainer} from '@/features/login/containers/login-form-container'
 
 export default function Login() {
   return (
@@ -7,7 +7,7 @@ export default function Login() {
         <h2 className="pb-3 mt-6 text-[#333] font-light border-b-2 border-[#ddd] text-2xl">
           Login
         </h2>
-        <LoginForm />
+        <LoginFormContainer />
       </div>
     </div>
   )
