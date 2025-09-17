@@ -5,9 +5,11 @@ import {Inter} from 'next/font/google'
 import {InfoLinks} from '@/features/shared/components/info-links'
 import './globals.css'
 import {Footer} from '@/features/shared/components/footer'
+import {server} from '@/__mocks__/node'
 
 // Providers
 import {NextAuthProvider} from '@/providers/next-auth'
+import {MswProvider} from '@/providers/msw'
 
 const inter = Inter({
   variable: '--inter-font',
@@ -23,9 +25,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
+    server.listen()
+    console.log('Inicializado');
+  }
+
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <MswProvider />
         <NextAuthProvider>
           <Header />
           <Navigation />

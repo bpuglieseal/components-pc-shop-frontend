@@ -32,7 +32,6 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: ({token, user}) => {
       const isLogged = !!user
-      console.log(user)
 
       if (isLogged) {
         token.id = user.id
