@@ -1,6 +1,14 @@
 import {LoginFormContainer} from '@/features/login/containers/login-form-container'
+import {getServerSession} from 'next-auth/next'
+import {redirect} from 'next/navigation'
 
-export default function Login() {
+export default async function Login() {
+  const session = await getServerSession()
+
+  if (!!session) {
+    redirect('/')
+  }
+
   return (
     <div id="login">
       <div className="container">

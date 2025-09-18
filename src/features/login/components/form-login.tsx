@@ -3,6 +3,7 @@ import {FC} from 'react'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {useForm} from 'react-hook-form'
+import { Alert } from '@/features/shared/components/alert'
 
 const loginFormScheme = yup.object({
   email: yup
@@ -16,10 +17,11 @@ type LoginFormData = yup.InferType<typeof loginFormScheme>
 
 interface LoginFormProps {
   onSubmit: (credentials: LoginFormData) => void
-  isLoading: boolean
+  isLoading: boolean,
+  error: string | null
 }
 
-export const LoginForm: FC<LoginFormProps> = ({isLoading, onSubmit}) => {
+export const LoginForm: FC<LoginFormProps> = ({isLoading, onSubmit, error}) => {
   const {
     register,
     formState: {errors},
@@ -38,6 +40,7 @@ export const LoginForm: FC<LoginFormProps> = ({isLoading, onSubmit}) => {
       className="flex flex-col py-4 gap-3"
       onSubmit={handleSubmit(onSubmit)}
     >
+      {!!error && <Alert>{error}</Alert>}
       <div className="flex flex-row items-center">
         <label className="w-4/12 text-right px-4 text-sm font-bold text-[#999]">
           Email Address

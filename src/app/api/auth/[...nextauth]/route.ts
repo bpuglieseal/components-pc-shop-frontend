@@ -2,6 +2,7 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import type {NextAuthOptions} from 'next-auth'
 import {login} from '@/features/login/api/login'
+import {FetchError} from '@/features/shared/api/fetch-error'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -15,15 +16,27 @@ export const authOptions: NextAuthOptions = {
         try {
           const email = credentials?.email ?? ''
           const password = credentials?.password ?? ''
-          const user = await login({username: email, password})
-          const token = user.token
+          const {token} = await login({username: email, password})
+          
+
           return {
             id: token,
-            email: 'bpa@gmail.com',
-            name: 'Baldassare Pugliese',
+            email: email,
+            name: email,
             access: token
           }
         } catch (error) {
+          if (error instanceof FetchError) {
+            switch (error.getStatus()) {
+              case 401:
+                throw new Error('Bad email or password')
+              case 500:
+                throw new Error('Try again later')
+              default:
+                throw new Error('Error: try again later')
+            }
+          }
+
           throw error
         }
       }
@@ -50,7 +63,9 @@ export const authOptions: NextAuthOptions = {
       return {...session}
     }
   },
-  secret: process.env.NEXT_AUTH_SECRET_KEY,
+  session: {
+    strategy: 'jwt'
+  },
   pages: {
     signIn: '/sign-in'
   }

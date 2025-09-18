@@ -2,13 +2,17 @@
 import {FC, useState} from 'react'
 import {LoginForm} from '../components/form-login'
 import {signIn} from 'next-auth/react'
+import {useRouter} from 'next/navigation'
 
 export const LoginFormContainer: FC<object> = () => {
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
   return (
     <LoginForm
       isLoading={loading}
+      error={error}
       onSubmit={({email, password}) => {
         const credentials = {email, password}
         setLoading(true)
@@ -19,9 +23,9 @@ export const LoginFormContainer: FC<object> = () => {
         })
           .then((res) => {
             if (res?.error) {
-              console.log(res.error)
+              setError(res.error)
             } else {
-              console.log('Welcome')
+              router.push('/')
             }
           })
           .finally(() => {
