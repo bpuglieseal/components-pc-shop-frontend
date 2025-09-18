@@ -3,7 +3,7 @@ import {FC, PropsWithChildren, useEffect} from 'react'
 
 type MswProviderProps = FC<PropsWithChildren>
 
-export const MswProvider: MswProviderProps = ({children}) => {
+export const MswProvider: MswProviderProps = () => {
   useEffect(() => {
     async function loadMocks() {
       if (process.env.NODE_ENV === 'development') {
