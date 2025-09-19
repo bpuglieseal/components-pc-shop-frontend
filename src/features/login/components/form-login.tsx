@@ -3,7 +3,7 @@ import {FC} from 'react'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {useForm} from 'react-hook-form'
-import { Alert } from '@/features/shared/components/alert'
+import {Alert} from '@/features/shared/components/alert'
 
 const loginFormScheme = yup.object({
   email: yup
@@ -17,7 +17,7 @@ type LoginFormData = yup.InferType<typeof loginFormScheme>
 
 interface LoginFormProps {
   onSubmit: (credentials: LoginFormData) => void
-  isLoading: boolean,
+  isLoading: boolean
   error: string | null
 }
 

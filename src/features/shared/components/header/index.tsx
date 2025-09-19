@@ -1,39 +1,44 @@
-import {FC, PropsWithChildren} from 'react'
-import Link from 'next/link'
-import Search from './icons/search'
-import Cart from './icons/cart'
+import {FC} from 'react'
+import {getServerSession} from 'next-auth/next'
+import Search from '../icons/search'
+import Cart from '../icons/cart'
+import {HeaderTopBarLinkItem} from './header-top-bar-link-item'
+import {FaUserAlt} from 'react-icons/fa'
+import {LogoutHeaderButton} from './logout-header-button'
 
-type HeaderProps = object
+export const Header: FC<{}> = async () => {
+  const session = await getServerSession()
 
-const HeaderTopBarLinkItem: FC<PropsWithChildren<{path: string}>> = ({
-  children,
-  path
-}) => {
-  return (
-    <li>
-      <Link
-        href={path}
-        className="text-white text-sm hover:text-[#999] transition-colors"
-      >
-        {children}
-      </Link>
-    </li>
-  )
-}
-
-export const Header: FC<HeaderProps> = () => {
   return (
     <header>
       <div className="min-h-10 bg-[#2c2c2c] flex items-center">
         <div className="container mx-auto flex flex-row justify-between">
-          <ul className="flex-row flex gap-6">
-            <HeaderTopBarLinkItem path="/account/login">
-              Log in
-            </HeaderTopBarLinkItem>
-            <HeaderTopBarLinkItem path="#">
-              Create an account
-            </HeaderTopBarLinkItem>
-            <HeaderTopBarLinkItem path="#">Check out</HeaderTopBarLinkItem>
+          <ul className="flex-row flex gap-6 items-center">
+            {session ? (
+              <>
+                <HeaderTopBarLinkItem
+                  path="/account"
+                  classname="flex flex-row items-center gap-2"
+                >
+                  <FaUserAlt className="text-inherit hover:text-inherit" />
+                  {session.user.name}
+                </HeaderTopBarLinkItem>
+                <li>
+                  <LogoutHeaderButton>Log out</LogoutHeaderButton>
+                </li>
+                <HeaderTopBarLinkItem path="#">Check out</HeaderTopBarLinkItem>
+              </>
+            ) : (
+              <>
+                <HeaderTopBarLinkItem path="/account/login">
+                  Log in
+                </HeaderTopBarLinkItem>
+                <HeaderTopBarLinkItem path="/account/register">
+                  Create an account
+                </HeaderTopBarLinkItem>
+                <HeaderTopBarLinkItem path="#">Check out</HeaderTopBarLinkItem>
+              </>
+            )}
           </ul>
           <div className="flex items-center">
             <h3 className="text-sm text-[#999]">Welcome to our online store</h3>

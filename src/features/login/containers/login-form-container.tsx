@@ -26,6 +26,7 @@ export const LoginFormContainer: FC<object> = () => {
               setError(res.error)
             } else {
               router.push('/')
+              router.refresh()
             }
           })
           .finally(() => {
