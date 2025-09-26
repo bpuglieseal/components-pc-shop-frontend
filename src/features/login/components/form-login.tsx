@@ -1,9 +1,17 @@
 'use client'
 import {FC} from 'react'
+import Link from 'next/link'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
-import {useForm} from 'react-hook-form'
+import {Form, useForm} from 'react-hook-form'
+
+// Components
 import {Alert} from '@/features/shared/components/alert'
+import {FormSubmit} from '@/features/shared/components/auth/form-submit'
+import {FormLabel} from '@/features/shared/components/auth/form-label'
+import {FormInput} from '@/features/shared/components/auth/input'
+import {FormGroup} from '@/features/shared/components/auth/form-group'
+import {FormError} from '@/features/shared/components/auth/form-error'
 
 const loginFormScheme = yup.object({
   email: yup
@@ -41,48 +49,46 @@ export const LoginForm: FC<LoginFormProps> = ({isLoading, onSubmit, error}) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       {!!error && <Alert>{error}</Alert>}
-      <div className="flex flex-row items-center">
-        <label className="w-4/12 text-right px-4 text-sm font-bold text-[#999]">
+      <FormGroup>
+        <FormLabel>
           Email Address
-        </label>
+        </FormLabel>
         <div className="w-4/12 px-4">
-          <input
+          <FormInput
             aria-invalid={!!errors.email?.message}
             aria-disabled={isLoading}
             disabled={isLoading}
             type="email"
             id="email"
-            className="p-[6px] border border-[#ddd] text-[#999] text-sm rounded-md w-full focus:border-[#aaa] focus-visible:border-[#aaa] focus:shadow-input-focus transition-colors aria-[invalid=true]:border-red-500"
             {...register('email')}
           />
           {!!errors.email?.message && (
-            <p className="text-xs text-red-500 font-medium mt-1">
-              {errors.email?.message}
-            </p>
+            <FormError>
+              errors.email?.message
+            </FormError>
           )}
         </div>
-      </div>
-      <div className="flex flex-row items-center">
-        <label className="w-4/12 text-right px-4 text-sm font-bold text-[#999]">
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>
           Password
-        </label>
+        </FormLabel>
         <div className="px-4 w-4/12">
-          <input
+          <FormInput
             aria-invalid={!!errors.password?.message}
             aria-disabled={isLoading}
             disabled={isLoading}
             type="password"
             id="password"
-            className="p-[6px] border border-[#ddd] text-[#999] text-sm rounded-md w-full focus:border-[#aaa] focus-visible:border-[#aaa] focus:shadow-input-focus transition-colors aria-[invalid=true]:border-red-500"
             {...register('password')}
           />
           {!!errors.password?.message && (
-            <p className="text-xs text-red-500 font-medium mt-1">
+            <FormError>
               {errors.password?.message}
-            </p>
+            </FormError>
           )}
         </div>
-      </div>
+      </FormGroup>
       <div className="w-4/12 ml-[33.3%] px-4">
         <a
           href="#"
@@ -92,19 +98,15 @@ export const LoginForm: FC<LoginFormProps> = ({isLoading, onSubmit, error}) => {
         </a>
       </div>
       <div className="w-4/12 ml-[33.3%] px-4">
-        <input
-          type="submit"
-          value="Sign In"
-          className="bg-[#999] text-sm font-light text-white rounded-md py-[6px] px-[10px] cursor-pointer hover:bg-[#467197] transition-colors"
-        />
+        <FormSubmit>Sign In</FormSubmit>
         <span className="ml-2 font-normal text-sm">
           or
-          <a
+          <Link
             href="#"
             className="ml-2 text-[#467197] hover:underline"
           >
             Return to Store
-          </a>
+          </Link>
         </span>
       </div>
     </form>

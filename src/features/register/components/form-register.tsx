@@ -1,4 +1,5 @@
 'use client'
+import NextLink from 'next/link'
 import {FC} from 'react'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
@@ -9,6 +10,8 @@ import {FormLabel} from '@/features/shared/components/auth/form-label'
 import {FormInput} from '@/features/shared/components/auth/input'
 import {FormGroup} from '@/features/shared/components/auth/form-group'
 import {Alert} from '../../shared/components/alert'
+import {FormSubmit} from '@/features/shared/components/auth/form-submit'
+import {FormError} from '@/features/shared/components/auth/form-error'
 
 const registerFormScheme = yup.object({
   username: yup.string().required('Username is required'),
@@ -73,9 +76,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
             {...register('username')}
           />
           {!!errors.username?.message && (
-            <p className="text-xs text-red-500 font-medium mt-1">
-              {errors.username?.message}
-            </p>
+            <FormError>{errors.username?.message}</FormError>
           )}
         </div>
       </FormGroup>
@@ -90,9 +91,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
             {...register('email')}
           />
           {!!errors.email?.message && (
-            <p className="text-xs text-red-500 font-medium mt-1">
-              {errors.email?.message}
-            </p>
+            <FormError>{errors.email?.message}</FormError>
           )}
         </div>
       </FormGroup>
@@ -107,9 +106,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
             {...register('password')}
           />
           {!!errors.password?.message && (
-            <p className="text-xs text-red-500 font-medium mt-1">
-              {errors.password?.message}
-            </p>
+            <FormError>{errors.password?.message}</FormError>
           )}
         </div>
       </FormGroup>
@@ -124,9 +121,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
             {...register('repeatPassword')}
           />
           {!!errors.repeatPassword?.message && (
-            <p className="text-xs text-red-500 font-medium mt-1">
-              {errors.repeatPassword?.message}
-            </p>
+            <FormError>{errors.repeatPassword?.message}</FormError>
           )}
         </div>
       </FormGroup>
@@ -141,9 +136,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
             {...register('direction')}
           />
           {!!errors.repeatPassword?.message && (
-            <p className="text-xs text-red-500 font-medium mt-1">
-              {errors.direction?.message}
-            </p>
+            <FormError>{errors.direction?.message}</FormError>
           )}
         </div>
       </FormGroup>
@@ -158,26 +151,20 @@ export const RegisterForm: FC<RegisterFormProps> = ({
             {...register('dateOfBirth')}
           />
           {!!errors.repeatPassword?.message && (
-            <p className="text-xs text-red-500 font-medium mt-1">
-              {errors.dateOfBirth?.message}
-            </p>
+            <FormError>{errors.dateOfBirth?.message}</FormError>
           )}
         </div>
       </FormGroup>
       <div className="w-4/12 ml-[33.3%] px-4">
-        <input
-          type="submit"
-          value="Sign In"
-          className="bg-[#999] text-sm font-light text-white rounded-md py-[6px] px-[10px] cursor-pointer hover:bg-[#467197] transition-colors"
-        />
+        <FormSubmit>Sign Up</FormSubmit>
         <span className="ml-2 font-normal text-sm">
           or
-          <a
-            href="#"
+          <NextLink
+            href="/"
             className="ml-2 text-[#467197] hover:underline"
           >
             Return to Store
-          </a>
+          </NextLink>
         </span>
       </div>
     </form>
