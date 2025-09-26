@@ -1,13 +1,8 @@
 import {FetchError} from '@/features/shared/api/fetch-error'
-import {LoginCredentials} from '../types'
+import {RegisterCredentials} from '../types/types'
 
-export interface AuthSuccessfully {
-  status: number
-  token: string
-}
-
-export async function login(credentials: LoginCredentials) {
-  const response = await fetch(`${process.env.API_URL}/login`, {
+export async function register(credentials: RegisterCredentials) {
+  const response = await fetch(`/api/auth/register`, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
@@ -22,7 +17,4 @@ export async function login(credentials: LoginCredentials) {
 
     throw new FetchError(body.message, status)
   }
-
-  const auth: AuthSuccessfully = await response.json()
-  return auth
 }

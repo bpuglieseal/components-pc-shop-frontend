@@ -27,7 +27,6 @@ export default function RootLayout({
 }>) {
   if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
     server.listen()
-    console.log('Inicializado');
   }
 
   return (
