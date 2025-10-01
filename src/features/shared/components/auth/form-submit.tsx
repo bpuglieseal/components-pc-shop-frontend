@@ -1,11 +1,29 @@
 import {FC, PropsWithChildren} from 'react'
+import {BeatLoader} from 'react-spinners'
 
-export const FormSubmit: FC<PropsWithChildren> = ({children}) => {
+interface FormSubmitProps {
+  isLoading: boolean
+}
+
+export const FormSubmit: FC<PropsWithChildren<FormSubmitProps>> = ({
+  isLoading,
+  children
+}) => {
   return (
-    <input
+    <button
+      disabled={isLoading}
+      aria-disabled={isLoading}
       type="submit"
-      value={children as string}
-      className="bg-[#999] text-sm font-light text-white rounded-md py-[6px] px-[10px] cursor-pointer hover:bg-[#467197] transition-colors"
-    />
+      className="bg-[#999] text-sm font-light text-white rounded-md py-[6px] px-[10px] cursor-pointer hover:bg-[#467197] transition-colors aria-[disabled=true]:hover:bg-[#999] aria-[disabled=true]:cursor-default"
+    >
+      {isLoading ? (
+        <BeatLoader
+          size={4}
+          color="white"
+        />
+      ) : (
+        children
+      )}
+    </button>
   )
 }

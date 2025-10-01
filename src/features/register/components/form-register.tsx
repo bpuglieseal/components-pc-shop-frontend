@@ -156,7 +156,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
         </div>
       </FormGroup>
       <div className="w-4/12 ml-[33.3%] px-4">
-        <FormSubmit>Sign Up</FormSubmit>
+        <FormSubmit isLoading={isLoading}>Sign Up</FormSubmit>
         <span className="ml-2 font-normal text-sm">
           or
           <NextLink

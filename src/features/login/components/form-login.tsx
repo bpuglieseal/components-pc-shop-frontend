@@ -98,11 +98,11 @@ export const LoginForm: FC<LoginFormProps> = ({isLoading, onSubmit, error}) => {
         </a>
       </div>
       <div className="w-4/12 ml-[33.3%] px-4">
-        <FormSubmit>Sign In</FormSubmit>
+        <FormSubmit isLoading={isLoading}>Sign In</FormSubmit>
         <span className="ml-2 font-normal text-sm">
           or
           <Link
-            href="#"
+            href="/"
             className="ml-2 text-[#467197] hover:underline"
           >
             Return to Store
